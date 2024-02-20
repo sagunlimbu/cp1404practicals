@@ -1,0 +1,1 @@
+This code uses a more efficient if-elif-else structure to check the score conditions. It first checks for invalid scores, then checks for each category (Excellent, Passable, and Bad) with the appropriate conditions. This ensures that only one message is printed based on the first condition that is met, making the program more concise and efficient.
