@@ -4,46 +4,49 @@ Name: <SAGUN LIMBU>
 """
 import csv
 
-
-def read_wimbledon_data(filename):
-    """Reads the Wimbledon data from a CSV file."""
-    with open(filename, "r", encoding="utf-8-sig") as file:
-        reader = csv.reader(file)
+def read_data(filename):
+    """
+    Read data from the CSV file and return a list of lists containing the information.
+    """
+    with open(filename, "r", encoding="utf-8-sig") as in_file:
+        reader = csv.reader(in_file)
+        next
         data = [row for row in reader]
     return data
 
-
-def process_champions(data):
-    """Processes the champions and their win counts."""
+def find_champions(data):
+    """
+    Find the champions and count how many times they have won.
+    """
     champions = {}
     for row in data:
-        name = row[1]
-        champions[name] = champions.get(name, 0) + 1
+        champion = row[2]
+        if champion in champions:
+            champions[champion] += 1
+        else:
+            champions[champion] = 1
     return champions
 
-
-def process_countries(data):
-    """Extracts and sorts the list of unique countries."""
-    countries = {row[2] for row in data}  # Using a set to ensure uniqueness
+def find_countries(data):
+    """
+    Find the countries of the champions in alphabetical order.
+    """
+    countries = {row[1] for row in data}
     return sorted(countries)
-
-
-def display_information(champions, countries):
-    """Displays the processed information."""
-    print("Champions and their win counts:")
-    for champion, count in champions.items():
-        print(f"{champion}: {count}")
-    print("\nCountries of the champions in alphabetical order:")
-    print(", ".join(countries))
-
 
 def main():
     filename = "wimbledon.csv"
-    data = read_wimbledon_data(filename)
-    champions = process_champions(data[1:])  # Exclude the header row
-    countries = process_countries(data[1:])  # Exclude the header row
-    display_information(champions, countries)
+    data = read_data(filename)
 
+    champions = find_champions(data)
+    countries = find_countries(data)
+
+    print("Wimbledon Champions:")
+    for champion, count in sorted(champions.items()):
+        print(f"{champion} {count}")
+
+    print("\nThese", len(countries), "countries have won Wimbledon:")
+    print(", ".join(countries))
 
 if __name__ == "__main__":
     main()
