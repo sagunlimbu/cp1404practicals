@@ -1,0 +1,21 @@
+<BoxLayout>:
+    orientation: 'vertical'
+
+    TextInput:
+        id: miles_input
+        hint_text: "Enter miles"
+        multiline: False
+        on_text: app.handle_input_change()
+
+    Label:
+        id: km_output
+        text: app.output_text
+        color: 1, 1, 0, 1  # Yellow color
+
+    Button:
+        text: '+1'
+        on_press: app.handle_increment(1)
+
+    Button:
+        text: '-1'
+        on_press: app.handle_increment(-1)
